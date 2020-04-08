@@ -33,11 +33,11 @@ and link all the value in one.
 
 ### FourCircle
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourCircle.png)
 
 ### FourSphere
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
 
 ## Array of Structure of Array
 
