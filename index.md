@@ -33,11 +33,11 @@ and link all the value in one.
 
 ### FourCircle
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourCircle.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
 
 ### FourSphere
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourSphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
 
 ## Array of Structure of Array
 
@@ -157,7 +157,7 @@ I used the _mm_movemask_ps() to store the result of each circle and then do a by
 I created a test who test 4 circle with 4 other circle but unfortunately i did not manage to found a good way to do the comparation, so that it can return the real result.
 
 I still did a benchamrk to see wich one is faster:
-![](https://ethancavadia.github.io/BM_GraphFonctionIntrinsics.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_GraphFonctionInstinsics.png)
 
 And sadly the result is that the C++ function is faster by 1.3 time.
 
