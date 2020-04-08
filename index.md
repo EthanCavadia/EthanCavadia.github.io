@@ -33,11 +33,11 @@ and link all the value in one.
 
 ### FourCircle
 
-![](https://ethancavadia.github.io/FourCircle.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourCircle.png)
 
 ### FourSphere
 
-![](https://ethancavadia.github.io/FourSphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourSphere.png)
 
 ## Array of Structure of Array
 
@@ -167,7 +167,7 @@ And sadly the result is that the C++ function is faster by 1.3 time.
 Because the square root function is expensive for the processor i wanted to find another way to find the result.
 
 This function play with the memory to return an really precise approximation(+-0.01) of the square root.
-´´´cpp
+Â´Â´Â´cpp
 float Q_rsqrt( float number )
 {
     long i;
@@ -184,7 +184,7 @@ float Q_rsqrt( float number )
                                               // this can be removed
     return y;
 }
-´´´
+Â´Â´Â´
 > source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9)
 
 
