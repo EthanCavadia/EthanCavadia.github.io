@@ -3,7 +3,7 @@
 
 ## Intro
 
-I worked on the cirlcle and shpere optimization for a game engine. Those shpaes are composed of two values, the center and the radius.
+I worked on the cirlcle and shpere optimization for a game engine. Those shapes are composed of two values, the center and the radius.
 Those shapes will be used later for the physics engine.
 
 ## Intersection
@@ -189,7 +189,8 @@ float Q_rsqrt( float number )
 
 
 I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
+
 I did the test but it was still slower than the basic intersection function.
 
 # Conclusion
-
+Trying to optimize the intersection helped me to understand a lot more how memory work, i'm a bit sad that all i did wasn't faster than the basic function, but i'm happy with what i learned during this project.
