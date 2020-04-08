@@ -3,7 +3,9 @@
 
 ## Intro
 
-I worked on the cirlcle and shpere optimization for a game engine. Those shapes are composed of two values, the center and the radius.
+I worked on the circles and sphere optimization for a game engine. Those shapes are composed of two values, the center, and the radius. 
+Those shapes will be used later for the physics engine.
+Intersection
 Those shapes will be used later for the physics engine.
 
 ## Intersection
@@ -22,14 +24,13 @@ bool Intersects(Circle circle) const
   	return distance <= radiusSum;
 }
 ```
-So if the distance between the two circles is less or equal or the sum of the two radius it return true.
+So if the distance between the two circles is less or equal or the sum of the two radii it returns true.
 
-I tryed some way to implement this function, first i know that the magnitude use a square root but it is an expensive task for the processor.
+I tried some way to implement this function, first, I tried to multiply a number of circles/spheres
 
 ## FourCircle, FourSphere
 
-The first optimization i tryed to made was to create the FourCircle class and the FourSphere class that contain an array of four circle/sphere.
-and link all the value in one.
+The first optimization i tryed to made was to create the FourCircle class and the FourSphere class that contain an array of four circle/sphere and link all the values into one.
 
 ### FourCircle
 
@@ -41,7 +42,7 @@ and link all the value in one.
 
 ## Array of Structure of Array
 
-AoSoA is a layout of the memory in wich data for different fields is interleaved using tiles or blocks with size equal to the SIMD vector size.
+AoSoA is a layout of the memory in which data for different fields is interleaved using tiles or blocks with a size equal to the SIMD vector size. 
 This appraoch of doing is more friendly with the Lcache and the SIMD port of the modern CPU.
 
 ### Array of Structure
@@ -66,12 +67,12 @@ struct Circle
 	std::array<float, N> radius;
 }
 ```
-If only a specific part of the record is needed, only those parts need to be iterated over, allowing more data to fit onto a single cache line. 
+If only a specific part of the record is needed, only those parts need to be iterated over, allowing more data to fit onto a single cache line.
 The downside is requiring more cache ways when traversing data, and inefficient indexed addressing.
 
 ### Array of Structure of Array
 
-AoSoA is a layout of the memory in wich data for different fields is interleaved using tiles or blocks with size equal to the power of 2, wich allow us to use SIMD expression.
+AoSoA is a layout of the memory in which data for different fields is interleaved using tiles or blocks with a size equal to the power of 2, which allows us to use SIMD expression.
 ```cpp
 struct Circle
 {
@@ -86,7 +87,7 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 I have a I7-7700HQ so i use SSE x86 intel intrinsics.
 
-Now that i have all my value aligned i wanted to see if my functions of intersection could be faster by passing from C++ to intrinsics.
+Now that I have all my value-aligned i wanted to see if my functions of intersection could be faster by going from C++ to intrinsics.
 ```cpp
     inline std::array<bool, 4> FourCircle::IntersectsIntrinsics(FourCircle circles)
     {
@@ -151,12 +152,12 @@ Compare the 4 values with the "<=" operator.
 ## _mm_movemask_ps
 Set each bit of mask of the memory destination based on the most significant bit of the corresponding packed single-precision (32-bit) floating-point element in the argument.
 
-I used the _mm_movemask_ps() to store the result of each circle and then do a bytewise comparation.
+I used the _mm_movemask_ps() to store the result of each circle and then do a bytewise comparison.
 
 # Result
-I created a test who test 4 circle with 4 other circle but unfortunately i did not manage to found a good way to do the comparation, so that it can return the real result.
+I created a test who test 4 circles with 4 other circles but unfortunately I did not manage to found a good way to do the comparison, so that it can return the real result.
 
-I still did a benchmark to see wich one is faster:
+I still did a benchmark to see which one is faster:
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/BM_GraphFonctionInstinsics.png)
 
 And sadly the result is that the C++ function is faster by 1.3 time.
@@ -164,7 +165,7 @@ And sadly the result is that the C++ function is faster by 1.3 time.
 # Other test of optimization
 
 ## Reverse square root
-Because the square root function is expensive for the processor i wanted to find another way to find the result.
+Because the square root function is expensive for the processor I wanted to find another way to find the result.
 
 This function play with the memory to return an really precise approximation(+-0.01) of the square root.
 
@@ -191,8 +192,7 @@ source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/t
 
 
 I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
-
 I did the test but it was still slower than the basic intersection function.
 
 # Conclusion
-Trying to optimize the intersection helped me to understand a lot more how memory work, i'm a bit sad that all i did wasn't faster than the basic function, but i'm happy with what i learned during this project.
+Trying to optimize the intersection helped me to understand a lot more how memory work, I’m a bit sad that all I did wasn’t faster than the basic function, but I’m happy with what I learned during this project.
