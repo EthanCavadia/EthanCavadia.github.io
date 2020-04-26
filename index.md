@@ -32,6 +32,7 @@ Because the square root function is expensive for the processor i wanted to find
 This function play with the memory to return a really precise approximation(+-0.01) of the square root.
 
 ´´´cpp
+
 float Q_rsqrt( float number )
 {
     long i;
