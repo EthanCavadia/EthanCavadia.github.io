@@ -58,15 +58,18 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 # Second implementation
 
-With this new square root function id did a new version a tested it with the [first function](https://ethancavadia.github.io/#intersection).
+With this new square root function id did a new version.
 
-¨![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/CircleIntersectvsIntersectfastinvSqrt.png)
 
-> Here the second version of the Intersection function.
+> Here the second version of the Intersection function with a ghange in the way the function get the magnitude.
 
 ## First result
 
-I did the test between the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection") and 
+I did the test between the [first function](https://ethancavadia.github.io/#intersection) and this second function.
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/CircleIntersectvsIntersectfastinvSqrt.png)
+
+But the ressult weren't conclusive, the second function being 1.6~ time slower.
 
 ## FourCircle, FourSphere
 
