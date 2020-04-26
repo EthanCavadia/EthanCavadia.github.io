@@ -58,9 +58,11 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 # Second implementation
 
-With this new square root function id did a new version a tested it with the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection").
+With this new square root function id did a new version a tested it with the [first function](https://ethancavadia.github.io/#intersection).
 
-![Here the second version of the Intersection function.](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Circle%20Intersect%20vs%20Intersect%20fast%20invSqrt.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Circle%20Intersect%20vs%20Intersect%20fast%20invSqrt.png)
+
+> Here the second version of the Intersection function.
 
 ## First result
 
