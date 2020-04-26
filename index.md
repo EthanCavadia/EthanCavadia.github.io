@@ -56,13 +56,13 @@ float Q_rsqrt(float number)
 
 I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
 
-#Second implementation
+# Second implementation
 
 With this new square root function id did a new version a tested it with the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection").
 
 ![Here the second version of the Intersection function.](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Circle%20Intersect%20vs%20Intersect%20fast%20invSqrt.png)
 
-##First result
+## First result
 
 I did the test between the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection") and 
 
@@ -88,7 +88,7 @@ struct Circle
 }
 ```
 
-###Structure of Array
+### Structure of Array
 
 SoA is a layout separating elements of a struct into one parallel array.
 ```cpp
