@@ -55,6 +55,7 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 #Second implementation
 With this new square root function id did a new version a tested it with the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection").
+
 ##First result
 I did the test between the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection") and 
 
