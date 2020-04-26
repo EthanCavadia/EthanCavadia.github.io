@@ -35,6 +35,7 @@ This function play with the memory to return a really precise approximation(+-0.
 
 float Q_rsqrt(float number)
 {
+
     long i;
     float x2, y;
     const float threehalfs = 1.5F;
@@ -48,6 +49,7 @@ float Q_rsqrt(float number)
 //  y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration,
                                               // this can be removed
     return y;
+
 }
 
 ´´´
