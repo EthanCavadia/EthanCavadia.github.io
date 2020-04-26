@@ -31,11 +31,10 @@ Because the square root function is expensive for the processor i wanted to find
 
 This function play with the memory to return a really precise approximation(+-0.01) of the square root.
 
-´´´cpp
+```cpp
 
 float Q_rsqrt(float number)
 {
-
     long i;
     float x2, y;
     const float threehalfs = 1.5F;
@@ -49,10 +48,9 @@ float Q_rsqrt(float number)
 //  y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration,
                                               // this can be removed
     return y;
-
 }
 
-´´´
+```
 
 > source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9)
 
