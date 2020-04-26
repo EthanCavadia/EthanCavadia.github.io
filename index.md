@@ -60,7 +60,7 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 With this new square root function id did a new version a tested it with the [first function](https://ethancavadia.github.io/#intersection).
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Circle%20Intersect%20vs%20Intersect%20fast%20invSqrt.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/CircleIntersectvsIntersectfastinvSqrt.png)
 
 > Here the second version of the Intersection function.
 
