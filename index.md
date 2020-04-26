@@ -27,6 +27,7 @@ So if the distance between the two circles is less or equal or the sum of the tw
 I tryed some way to implement this function, first i know that the magnitude use a square root but it is an expensive task for the processor.
 
 ## Reverse square root
+
 Because the square root function is expensive for the processor i wanted to find another way to find the result.
 
 This function play with the memory to return a really precise approximation(+-0.01) of the square root.
@@ -56,10 +57,12 @@ float Q_rsqrt(float number)
 I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
 
 #Second implementation
+
 With this new square root function id did a new version a tested it with the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection").
 ![Here the second version of the Intersection function.](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Circle%20Intersect%20vs%20Intersect%20fast%20invSqrt.png)
 
 ##First result
+
 I did the test between the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection") and 
 
 ## FourCircle, FourSphere
