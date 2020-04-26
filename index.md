@@ -30,6 +30,7 @@ I tryed some way to implement this function, first i know that the magnitude use
 Because the square root function is expensive for the processor i wanted to find another way to find the result.
 
 This function play with the memory to return a really precise approximation(+-0.01) of the square root.
+
 ´´´cpp
 float Q_rsqrt( float number )
 {
