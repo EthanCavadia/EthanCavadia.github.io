@@ -26,18 +26,43 @@ So if the distance between the two circles is less or equal or the sum of the tw
 
 I tryed some way to implement this function, first i know that the magnitude use a square root but it is an expensive task for the processor.
 
+## Reverse square root
+Because the square root function is expensive for the processor i wanted to find another way to find the result.
+
+This function play with the memory to return a really precise approximation(+-0.01) of the square root.
+´´´cpp
+float Q_rsqrt( float number )
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5F;
+
+    x2 = number * 0.5F;
+    y  = number;
+    i  = * ( long * ) &y;    // evil floating point bit level hacking
+    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
+    y  = * ( float * ) &i;
+    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
+//  y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration,
+                                              // this can be removed
+    return y;
+}
+´´´
+> source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9)
+
+
+I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
+
+#Second implementation
+With this new square root function id did a new version a tested it with the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection").
+##First result
+I did the test between the [first function](https://github.com/EthanCavadia/EthanCavadia.github.io/index.md "Intersection") and 
+
 ## FourCircle, FourSphere
 
-The first optimization i tryed to made was to create the FourCircle class and the FourSphere class that contain an array of four circle/sphere.
+I tryed to made was to create the FourCircle class and the FourSphere class that contain an array of four circle/sphere.
 and link all the value in one.
 
-### FourCircle
-
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourCircle.png)
-
-### FourSphere
-
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
 
 ## Array of Structure of Array
 
@@ -81,6 +106,14 @@ struct Circle
 }
 ```
 This appraoch of doing is more friendly with the Lcache and the SIMD port of the modern CPU.
+
+### FourCircle
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourCircle.png)
+
+### FourSphere
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
 
 # Trying intrinsics
 
@@ -161,35 +194,6 @@ I still did a benchmark to see wich one is faster:
 
 And sadly the result is that the C++ function is faster by 1.3 time.
 
-# Other test of optimization
-
-## Reverse square root
-Because the square root function is expensive for the processor i wanted to find another way to find the result.
-
-This function play with the memory to return an really precise approximation(+-0.01) of the square root.
-´´´cpp
-float Q_rsqrt( float number )
-{
-    long i;
-    float x2, y;
-    const float threehalfs = 1.5F;
-
-    x2 = number * 0.5F;
-    y  = number;
-    i  = * ( long * ) &y;    // evil floating point bit level hacking
-    i  = 0x5f3759df - ( i >> 1 );               // what the fuck? 
-    y  = * ( float * ) &i;
-    y  = y * ( threehalfs - ( x2 * y * y ) );   // 1st iteration
-//  y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration,
-                                              // this can be removed
-    return y;
-}
-´´´
-> source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9)
-
-
-I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
-I did the test but it was still slower than the basic intersection function.
 
 # Conclusion
 
