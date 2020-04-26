@@ -33,7 +33,7 @@ This function play with the memory to return a really precise approximation(+-0.
 
 ´´´cpp
 
-float Q_rsqrt( float number )
+float Q_rsqrt(float number)
 {
     long i;
     float x2, y;
@@ -49,6 +49,7 @@ float Q_rsqrt( float number )
                                               // this can be removed
     return y;
 }
+
 ´´´
 
 > source : [The Legendary Fast Inverse Square Root](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9)
