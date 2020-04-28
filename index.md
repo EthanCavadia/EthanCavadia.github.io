@@ -77,6 +77,7 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 #### BM_SphereIntersects
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
+> result of benchmark done on [quick-bench.com](http://quick-bench.com/)
 
 In this instruction we can see that the "add" takes most of the time, meaning that it takes most of the time writing in memory.
 
@@ -87,7 +88,7 @@ And we can see that the "movaps" before the "sqrtss" takes most of the time not 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
-> result of benchmark done on [quick-bench.com](https://quick-bench.com)
+> result of benchmark done on [quick-bench.com](http://quick-bench.com/)
 
 Same as before but here with the "0x5f3759df" magic value to get the square root.
 
