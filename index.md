@@ -154,7 +154,7 @@ Here is the application in my code for the Circle.
 
 Here is the application in my code for the Sphere.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourSphere.png)
 
 # Intrinsics
 
