@@ -8,8 +8,20 @@ Those shapes will be used later for the physics engine.
 
 ## Intersection
 
-the intersect for the circle and sphere is basicly the same exept we need a third dimension for the sphere.
+the intersect for the circle and sphere is basicly the same exept we need a third dimension for the sphere:
+```cpp
+struct Circle
+{
+    Vec2f center;
+    float radius;
+}
 
+struct Sphere
+{
+    Vec3f center;
+    float radius;
+}
+```
 The intersection function is :
 ```cpp
 bool Intersects(Circle circle) const
@@ -60,9 +72,21 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 With this new square root function i did a new version.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/second_version_intersections.png)
+```cpp
+bool IntersectsRSqrt(const Sphere sphere) const
+{
+    const Vec3f distanceVec = center - sphere.center;
 
-> Here the second version of the Intersection function with a ghange in the way the function get the magnitude.
+    const float radiusSum = sphere.radius + radius;
+
+    const float distance = RSqrt(distanceVec.x * distanceVec.x +
+					             distanceVec.y * distanceVec.y +
+					             distanceVec.z * distanceVec.z);
+
+    return distance <= radiusSum;
+}
+```
+> Here the second version of the Intersection function with a change in the way the function get the magnitude.
 
 ## First result
 
@@ -149,13 +173,13 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 ### FourCircle
 
-Here is the application in my code for the Circle.
+Here is the application of AoSoA in my code for the Circle.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
 
 ### FourSphere
 
-Here is the application in my code for the Sphere.
+Here is the application of AoSoA in my code for the Sphere.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
 
@@ -228,12 +252,12 @@ I created a test between four circle with four other circle :
 #### BM_CircleIntersects vs BM_CircleIntersectsIntrinsics
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Circle.png)
->benchmark done on Windows 10, CPU I7-7700HQ
+> benchmark done on Windows 10, CPU I7-7700HQ
 
 #### BM_SphereIntersects vs BM_SphereIntersectsIntrinsics
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Sphere.png)
->benchmark done on Windows 10, CPU I7-7700HQ
+> benchmark done on Windows 10, CPU I7-7700HQ
 
 The result given are that the intrinsics functions are sloer if not iterate a lot of time.
 
