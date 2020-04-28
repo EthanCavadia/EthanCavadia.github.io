@@ -100,7 +100,7 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 
 #### BM_SphereIntersects
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
+![](/Assets/AssemblyIntersectCircle.png)
 > result of benchmark done on [quick-bench.com](http://quick-bench.com/)
 
 In this instruction we can see that the "add" takes most of the time, meaning that it takes most of the time writing in memory.
@@ -109,9 +109,9 @@ And we can see that the "movaps" before the "sqrtss" takes most of the time not 
 
 #### BM_SphereIntersectsRSqrt
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
+![](/Assets/AssemblyRSqrt.png)
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
+![](/Assets/AssemblyIntersectsRSqrt.png)
 > result of benchmark done on [quick-bench.com](http://quick-bench.com/)
 
 Same as before but here with the "0x5f3759df" magic value to get the square root.
@@ -124,7 +124,7 @@ So my problem is tht it takes time to write data. I heard a way to process data 
 
 This process is called SIMD operation :
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/SIMDoperations.png)
+![](/Assets/SIMDoperations.png)
 
 Unlike scalar operation, SIMD operate with multiple value at once but i need to process the data differently.
 
@@ -173,13 +173,13 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 Here is the application of AoSoA for the Circle.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
+![](/Assets/FourCircle.png)
 
 ### FourSphere
 
 Here is the application of AoSoA for the Sphere.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
+![](/Assets/FourSphere.png)
 
 # Intrinsics
 
@@ -249,12 +249,12 @@ I created a test between four circle with four other circle :
 
 #### BM_CircleIntersects vs BM_CircleIntersectsIntrinsics
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Circle.png)
+![](/Assets/BM_Circle.png)
 > benchmark done on Windows 10, CPU I7-7700HQ
 
 #### BM_SphereIntersects vs BM_SphereIntersectsIntrinsics
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Sphere.png)
+![](/Assets/BM_Sphere.png)
 > benchmark done on Windows 10, CPU I7-7700HQ
 
 The result given are that the intrinsics functions are slower if not iterate a lot of time.
