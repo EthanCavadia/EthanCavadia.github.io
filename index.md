@@ -74,7 +74,7 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 
 ### Why it's not faster
 
-#### BM_CircleIntersects
+#### BM_SphereIntersects
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
 
@@ -82,11 +82,12 @@ In this instruction we can see that the "add" takes most of the time, meaning th
 
 And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
 
-#### BM_CircleIntersectsRSqrt
+#### BM_SphereIntersectsRSqrt
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
+> result of benchmark done on [quick-bench.com](https://quick-bench.com)
 
 Same as before but here with the "0x5f3759df" magic value to get the square root.
 
@@ -225,18 +226,15 @@ I created a test between four circle with four other circle :
 
 #### BM_CircleIntersects vs BM_CircleIntersectsIntrinsics
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_Circle.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Circle.png)
+>benchmark done on Windows 10, CPU I7-7700HQ
 
 #### BM_SphereIntersects vs BM_SphereIntersectsIntrinsics
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_Sphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Sphere.png)
+>benchmark done on Windows 10, CPU I7-7700HQ
 
-
-I still did a benchmark to see wich one is faster:
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_GraphFonctionInstinsics.png)
-
-The result given are that the intrinsics functions are in final about 4~ time faster for the circle and 3.7~ time faster for the sphere.
-
+The result given are that the intrinsics functions are sloer if not iterate a lot of time.
 
 # Conclusion
 
