@@ -73,7 +73,7 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 
 ### Why it's not faster
 
-#### BM_Intersects
+#### BM_CircleIntersects vs BM_CircleIntersectsRSqrt
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
 
@@ -81,7 +81,7 @@ In this instruction we can see that the "add" takes most of the time, meaning th
 
 And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
 
-#### BM_IntersectsRSqrt
+#### BM_SphereIntersects vs BM_SphereIntersectsRSqrt
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
@@ -98,6 +98,8 @@ I heard a way to process where i could process multiple data at once.
 This process is called SIMD operation :
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/SIMDoperations.png)
+
+Unlike scalar operation, SIMD operate with multiple value at once but i need to process the data differently.
 
 ## Array of Structure of Array
 
@@ -144,9 +146,13 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 ### FourCircle
 
+Here is the application in my code for the Circle.
+
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourCircle.png)
 
 ### FourSphere
+
+Here is the application in my code for the Sphere.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
 
@@ -156,6 +162,7 @@ I have a I7-7700HQ so i use SSE x86 intel intrinsics.
 
 Now that i have all my value aligned i wanted to see if my functions of intersection could be faster by passing from C++ to intrinsics.
 
+This function is the same as the C++ one but in intrinsics using four circle at once.
 ```cpp
 inline uint8_t FourCircle::IntersectsIntrinsicsCircle(const FourCircle& circlesA, const FourCircle& circlesB)
 {
@@ -185,20 +192,24 @@ inline uint8_t FourCircle::IntersectsIntrinsicsCircle(const FourCircle& circlesA
     return results;
 }
 ```
+## __m128
+__m128 is the 128 bit xmm register.
 
 ## ps
 packed single_precision floating-points. is a 4 * 32 bit floating point numbers stored as a 128-bit value.
 
+This will be the value used by the intrinsics functions.
+
 ## _mm_load_ps()
 Load 128-bits composed of 4 packed single-precision (32-bit) floating-point elements) from memory into memory destination. mem_addr must be aligned on a 16-byte boundary.
 
-With _mm_load_ps() i load my 4 float (4 * 4) from each  to fill the 16-byte boundary.
+With _mm_load_ps() i load my 4 float (4 * 4) from each to fill the 16-byte boundary of one ps.
 
 ## _mm_mul_ps()
-The _mm_mul_ps function is multiplying 4 floats with 4 other floats.
+The _mm_mul_ps function is multiplying a ps with another ps.
 
 ## _mm_add_ps()
-The _mm_add_ps function is adding two values together.
+The _mm_add_ps function is adding a ps with another ps.
 
 ##_mm_cmple_ps()
 Compare the 4 values with the "<=" operator.
@@ -206,16 +217,30 @@ Compare the 4 values with the "<=" operator.
 ## _mm_movemask_ps
 Set each bit of mask of the memory destination based on the most significant bit of the corresponding packed single-precision (32-bit) floating-point element in the argument.
 
-I used the _mm_movemask_ps() to store the result of each circle and then do a bytewise comparation.
+I used the _mm_movemask_ps() to store the result of each circle in order to return it.
 
 # Result
-I created a test who test 4 circle with 4 other circle but unfortunately i did not manage to found a good way to do the comparation, so that it can return the real result.
+I created a test between four circle with four other circle :
+
+#### BM_CircleIntersects vs BM_CircleIntersectsIntrinsics
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_Circle.png)
+
+#### BM_SphereIntersects vs BM_SphereIntersectsIntrinsics
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_Sphere.png)
+
 
 I still did a benchmark to see wich one is faster:
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/BM_GraphFonctionInstinsics.png)
 
-And sadly the result is that the C++ function is faster by 1.3 time.
+The result given are that the intrinsics functions are in final about 4~ time faster for the circle and 3.7~ time faster for the sphere.
 
 
 # Conclusion
 
+In order for the optimisation to work it have to be iterate a lot of time.
+
+I learned a lot about programming memory organization.
+
+This was an interesting experience and made me get interessted more about the thing i was looking.
