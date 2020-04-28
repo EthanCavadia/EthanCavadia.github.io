@@ -58,7 +58,7 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 # Second implementation
 
-With this new square root function id did a new version.
+With this new square root function i did a new version.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/second_version_intersections.png)
 
@@ -70,11 +70,11 @@ I did the test between the [first function](https://ethancavadia.github.io/#inte
 
 But the result weren't conclusive, the second function being 1~ time slower for the circle and even for the sphere.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_CircleRsqrt.png) [](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_SphereRsqrt.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_CircleRsqrt.png) ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_SphereRsqrt.png)
 
 ### Why it's not faster
 
-#### BM_CircleIntersects vs BM_CircleIntersectsRSqrt
+#### BM_CircleIntersects
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
 
@@ -82,7 +82,7 @@ In this instruction we can see that the "add" takes most of the time, meaning th
 
 And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
 
-#### BM_SphereIntersects vs BM_SphereIntersectsRSqrt
+#### BM_CircleIntersectsRSqrt
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
@@ -159,9 +159,9 @@ Here is the application in my code for the Sphere.
 
 # Intrinsics
 
-I have a I7-7700HQ so i use SSE x86 intel intrinsics.
-
 Now that i have all my value aligned i wanted to see if my functions of intersection could be faster by passing from C++ to intrinsics.
+
+I have a I7-7700HQ so i use SSE x86 intel intrinsics.
 
 This function is the same as the C++ one but in intrinsics using four circle at once.
 ```cpp
@@ -193,29 +193,29 @@ inline uint8_t FourCircle::IntersectsIntrinsicsCircle(const FourCircle& circlesA
     return results;
 }
 ```
-## __m128
+### __m128
 __m128 is the 128 bit xmm register.
 
-## ps
+### ps
 packed single_precision floating-points. is a 4 * 32 bit floating point numbers stored as a 128-bit value.
 
 This will be the value used by the intrinsics functions.
 
-## _mm_load_ps()
+### _mm_load_ps()
 Load 128-bits composed of 4 packed single-precision (32-bit) floating-point elements) from memory into memory destination. mem_addr must be aligned on a 16-byte boundary.
 
 With _mm_load_ps() i load my 4 float (4 * 4) from each to fill the 16-byte boundary of one ps.
 
-## _mm_mul_ps()
+### _mm_mul_ps()
 The _mm_mul_ps function is multiplying a ps with another ps.
 
-## _mm_add_ps()
+### _mm_add_ps()
 The _mm_add_ps function is adding a ps with another ps.
 
-## _mm_cmple_ps()
+### _mm_cmple_ps()
 Compare the 4 values with the "<=" operator.
 
-## _mm_movemask_ps
+### _mm_movemask_ps
 Set each bit of mask of the memory destination based on the most significant bit of the corresponding packed single-precision (32-bit) floating-point element in the argument.
 
 I used the _mm_movemask_ps() to store the result of each circle in order to return it.
