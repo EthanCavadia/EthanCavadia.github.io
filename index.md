@@ -211,8 +211,7 @@ The _mm_mul_ps function is multiplying a ps with another ps.
 ## _mm_add_ps()
 The _mm_add_ps function is adding a ps with another ps.
 
-##_mm_cmple_ps()
-
+## _mm_cmple_ps()
 Compare the 4 values with the "<=" operator.
 
 ## _mm_movemask_ps
