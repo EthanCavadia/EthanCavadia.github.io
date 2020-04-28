@@ -148,13 +148,13 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 Here is the application in my code for the Circle.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourCircle.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
 
 ### FourSphere
 
 Here is the application in my code for the Sphere.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/FourSphere.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
 
 # Intrinsics
 
