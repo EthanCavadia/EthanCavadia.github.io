@@ -73,11 +73,15 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 
 ### Why it's not faster
 
+####BM_Intersects
+
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
 
 In this instruction we can see that the "add" takes most of the time, meaning that it takes most of the time writing in memory.
 
 And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
+
+####BM_Intersects
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
@@ -146,53 +150,40 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/Assets/FourSphere.png)
 
-# Trying intrinsics
+# Intrinsics
 
 I have a I7-7700HQ so i use SSE x86 intel intrinsics.
 
 Now that i have all my value aligned i wanted to see if my functions of intersection could be faster by passing from C++ to intrinsics.
+
 ```cpp
-    inline std::array<bool, 4> FourCircle::IntersectsIntrinsics(FourCircle circles)
-    {
-        alignas(4 * sizeof(bool))
-        std::array<bool, 4> results;
-        std::array<float, 4> centers;
-        std::array<float, 4> radSum;
-        std::array<float, 4> radSub;
+inline uint8_t FourCircle::IntersectsIntrinsicsCircle(const FourCircle& circlesA, const FourCircle& circlesB)
+{
+    __m128 x1 = _mm_load_ps(circlesA.centerXs.data());
+    __m128 y1 = _mm_load_ps(circlesA.centerYs.data());
+    __m128 rad1 = _mm_load_ps(circlesA.radius.data());
 
-        auto x1 = _mm_load_ps(centerXs.data());
-        auto y1 = _mm_load_ps(centerYs.data());
-        auto rad1 = _mm_load_ps(radius.data());
+    __m128 x2 = _mm_load_ps(circlesB.centerXs.data());
+    __m128 y2 = _mm_load_ps(circlesB.centerYs.data());
+    __m128 rad2 = _mm_load_ps(circlesB.radius.data());
+	
+    x1 = _mm_sub_ps(x1, x2);
+    y1 = _mm_sub_ps(y1, y2);
 
-        auto x2 = _mm_load_ps(circles.centerXs.data());
-        auto y2 = _mm_load_ps(circles.centerYs.data());
-        auto rad2 = _mm_load_ps(circles.radius.data());
+    __m128 radSum = _mm_add_ps(rad1, rad2);
 
-        x1 = _mm_sub_ps(x1, x2);
-        y1 = _mm_sub_ps(y1, y2);
-        rad1 = _mm_add_ps(rad1, rad2);
-        rad1 = _mm_mul_ps(rad1, rad1);
+    __m128 distx = _mm_mul_ps(x1, x1);
+    __m128 disty = _mm_mul_ps(y1, y1);
 
-        x1 = _mm_mul_ps(x1, x1);
-        y1 = _mm_mul_ps(y1, y1);
-        x1 = _mm_add_ps(x1, y1);
+    __m128 dist = _mm_add_ps(distx, disty);
 
-        __m128 result = _mm_cmple_ps(x1, rad1);
-        unsigned condition = _mm_movemask_ps(result);
+    __m128 mag = _mm_rsqrt_ps(dist);
+    __m128 mask = _mm_cmple_ps(radSum, mag);
 
-        // One or more of the distances were less-than-or-equal-to the maximum,
-        // so we have something to draw
-         if(condition != 0)
-         {
-        results[0] = (condition & 0x000F) != 0;
-        results[1] = (condition & 0x00F0) != 0;
-        results[2] = (condition & 0x0F00) != 0;
-        results[3] = (condition & 0xF000) != 0;
-        }
-        
-        return results;
-        // The calculation in the instrincs return the good results but i suppose that the condition variables is not set correctly.
-    }
+    uint8_t results = _mm_movemask_ps(mask);
+    
+    return results;
+}
 ```
 
 ## ps
@@ -201,7 +192,7 @@ packed single_precision floating-points. is a 4 * 32 bit floating point numbers 
 ## _mm_load_ps()
 Load 128-bits composed of 4 packed single-precision (32-bit) floating-point elements) from memory into memory destination. mem_addr must be aligned on a 16-byte boundary.
 
-With _mm_load_ps() i load my 4 float (4 * 4) to fill the 16-byte boundary.
+With _mm_load_ps() i load my 4 float (4 * 4) from each  to fill the 16-byte boundary.
 
 ## _mm_mul_ps()
 The _mm_mul_ps function is multiplying 4 floats with 4 other floats.
