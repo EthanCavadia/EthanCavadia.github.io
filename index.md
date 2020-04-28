@@ -30,7 +30,7 @@ I tryed some way to implement this function, first i know that the magnitude use
 
 Because the square root function is expensive for the processor i wanted to find another way to find the result.
 
-This function play with the memory to return a really precise approximation(+-0.01) of the square root.
+This function play with the memory to return a really precise approximation(+-0.175%) of the square root.
 
 ```cpp
 float Q_rsqrt(float number)
@@ -69,14 +69,14 @@ I did the test between the [first function](https://ethancavadia.github.io/#inte
 
 But the result weren't conclusive, the second function being 1~ time slower for the circle and even for the sphere.
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_CircleRsqrt.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_CircleRsqrt.png) ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_SphereRsqrt.png)
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_SphereRsqrt.png)
+### Why it's not faster
 
-## FourCircle, FourSphere
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png) ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
 
-I tryed to made was to create the FourCircle class and the FourSphere class that contain an array of four circle/sphere.
-and link all the value in one.
+
+## SIMD (Single Instruction Multiple Data)
 
 
 ## Array of Structure of Array
@@ -101,9 +101,9 @@ SoA is a layout separating elements of a struct into one parallel array.
 ```cpp
 struct Circle
 {
-	std::array<float, N> centerX
-	std::array<float, N> centerY;
-	std::array<float, N> radius;
+	std::vector<float> centerX
+	std::vector<float> centerY;
+	std::vector<float> radius;
 }
 ```
 If only a specific part of the record is needed, only those parts need to be iterated over, allowing more data to fit onto a single cache line. 
