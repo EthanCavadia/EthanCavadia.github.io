@@ -120,7 +120,7 @@ And the code is much longer.
 
 
 ## SIMD (Single Instruction Multiple Data)
-I heard a way to process where i could process multiple data at once.
+So my problem is tht it takes time to write data. I heard a way to process data where i could process multiple data at once.
 
 This process is called SIMD operation :
 
@@ -130,16 +130,16 @@ Unlike scalar operation, SIMD operate with multiple value at once but i need to 
 
 ## Array of Structure of Array
 
-AoSoA is a layout of the memory in wich data for different fields is interleaved using tiles or blocks with size equal to the SIMD vector size.
+AoSoA is a layout of the memory in wich data for different fields is interleaved using tiles or blocks with size equal to the SIMD vector size of 64 bytes.
 This appraoch of doing is more friendly with the Lcache and the SIMD port of the modern CPU.
 
 ### Array of Structure
 
 The AoS is the most conventional memory layout.
 ```cpp
-struct Circle
+struct Sphere
 {
-	Vec2f centerX
+	Vec3f centerX
 	float radius;
 }
 ```
@@ -148,10 +148,9 @@ struct Circle
 
 SoA is a layout separating elements of a struct into one parallel array.
 ```cpp
-struct Circle
+struct Sphere
 {
-	std::vector<float> centerX
-	std::vector<float> centerY;
+	std::vector<Vec3f> center;
 	std::vector<float> radius;
 }
 ```
@@ -162,10 +161,9 @@ The downside is requiring more cache ways when traversing data, and inefficient 
 
 AoSoA is a layout of the memory in wich data for different fields is interleaved using tiles or blocks with size equal to the power of 2, wich allow us to use SIMD expression.
 ```cpp
-struct Circle
+struct Sphere
 {
-	std::array<float, 4> centerX
-	std::array<float, 4> centerY;
+	std::array<float, 4> center;
 	std::array<float, 4> radius;
 }
 ```
@@ -173,13 +171,13 @@ This appraoch of doing is more friendly with the Lcache and the SIMD port of the
 
 ### FourCircle
 
-Here is the application of AoSoA in my code for the Circle.
+Here is the application of AoSoA for the Circle.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourCircle.png)
 
 ### FourSphere
 
-Here is the application of AoSoA in my code for the Sphere.
+Here is the application of AoSoA for the Sphere.
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/FourSphere.png)
 
@@ -187,7 +185,7 @@ Here is the application of AoSoA in my code for the Sphere.
 
 Now that i have all my value aligned i wanted to see if my functions of intersection could be faster by passing from C++ to intrinsics.
 
-I have a I7-7700HQ so i use SSE x86 intel intrinsics.
+I have a I7-7700HQ GPU so i used SSE x86 intel intrinsics.
 
 This function is the same as the C++ one but in intrinsics using four circle at once.
 ```cpp
@@ -259,12 +257,12 @@ I created a test between four circle with four other circle :
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_Sphere.png)
 > benchmark done on Windows 10, CPU I7-7700HQ
 
-The result given are that the intrinsics functions are sloer if not iterate a lot of time.
+The result given are that the intrinsics functions are slower if not iterate a lot of time.
 
 # Conclusion
 
 In order for the optimisation to work it have to be iterate a lot of time.
 
-I learned a lot about programming memory organization.
+I learned a lot about data structures and assembly.
 
-This was an interesting experience and made me get interessted more about the thing i was looking.
+This was an interesting experience and made me get interessted more about the thing i was looking during the process of this project.
