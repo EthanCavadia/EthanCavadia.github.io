@@ -81,7 +81,7 @@ In this instruction we can see that the "add" takes most of the time, meaning th
 
 And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
 
-#### BM_Intersects
+#### BM_IntersectsRSqrt
 
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
 
