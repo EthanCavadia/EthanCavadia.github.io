@@ -29,12 +29,12 @@ bool Intersects(Circle circle) const
 	Vec2f distanceVector = center - circle.center;
 	float radiusSum = radius + circle.radius;
 
-	float distance = distanceVector.Magnitude();
+	float magnitude = distanceVector.Magnitude();
    
-  	return distance <= radiusSum;
+  	return magnitude <= radiusSum;
 }
 ```
-So if the distance between the two circles is less or equal or the sum of the two radius it return true.
+So if the magnitude between the two circles is less or equal or the sum of the two radius it return true.
 
 I tryed some way to implement this function, first i know that the magnitude use a square root but it is an expensive task for the processor.
 
@@ -67,6 +67,8 @@ float Q_rsqrt(float number)
 
 
 I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fast-inverse-square-root-e51fee3b49d9) about the reverse square root function to really understand the black magic behind.
+
+This function was firsts created by a programmer for Quake III to optimize 3D graphics, because they where using a lot of square root slowing drasticly the game but with this function they where able to be four time faster.
 
 # Second implementation
 
