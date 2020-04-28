@@ -73,11 +73,27 @@ But the result weren't conclusive, the second function being 1~ time slower for 
 
 ### Why it's not faster
 
-![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png) [](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectCircle.png)
+
+In this instruction we can see that the "add" takes most of the time, meaning that it takes most of the time writing in memory.
+
+And we can see that the "movaps" before the "sqrtss" takes most of the time not the square root.
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyRSqrt.png)
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/AssemblyIntersectsRSqrt.png)
+
+Same as before but here with the "0x5f3759df" magic value to get the square root.
+
+And the code is much longer.
 
 
 ## SIMD (Single Instruction Multiple Data)
+I heard a way to process where i could process multiple data at once.
 
+This process is called SIMD operation :
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/SIMDoperations.png)
 
 ## Array of Structure of Array
 
