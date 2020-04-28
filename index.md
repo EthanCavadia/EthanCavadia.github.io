@@ -66,9 +66,14 @@ With this new square root function id did a new version.
 ## First result
 
 I did the test between the [first function](https://ethancavadia.github.io/#intersection) and this second function.
+
 ![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/CircleIntersectvsIntersectfastinvSqrt.png)
 
-But the ressult weren't conclusive, the second function being 1.6~ time slower.
+But the result weren't conclusive, the second function being 1~ time slower. for the circle and even for the sphere.
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_CircleRsqrt.png)
+
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/BM_SphereRsqrt.png)
 
 ## FourCircle, FourSphere
 
