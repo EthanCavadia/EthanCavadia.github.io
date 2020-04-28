@@ -60,6 +60,7 @@ I recommend to read [this article](https://medium.com/hard-mode/the-legendary-fa
 
 With this new square root function id did a new version.
 
+![](https://github.com/EthanCavadia/EthanCavadia.github.io/blob/master/Assets/second_version_intersections.png)
 
 > Here the second version of the Intersection function with a ghange in the way the function get the magnitude.
 
